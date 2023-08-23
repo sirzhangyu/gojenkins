@@ -69,7 +69,7 @@ type generalObj struct {
 	MercurialNodeName       string                   `json:"mercurialNodeName"`
 	MercurialRevisionNumber string                   `json:"mercurialRevisionNumber"`
 	Subdir                  interface{}              `json:"subdir"`
-	WaitingTimeMillis       int64                    `json:"waitingTimeMillis"`
+	QueuingTimeMillis       int64                    `json:"queuingTimeMillis"`
 	TotalCount              int64
 	UrlName                 string
 }
@@ -283,8 +283,8 @@ func (b *Build) GetCauses(ctx context.Context) ([]map[string]interface{}, error)
 
 func (b *Build) GetWaitingTime(ctx context.Context) int64 {
 	for _, a := range b.Raw.Actions {
-		if a.WaitingTimeMillis > 0 {
-			return a.WaitingTimeMillis
+		if a.QueuingTimeMillis > 0 {
+			return a.QueuingTimeMillis
 		}
 	}
 	return 0
